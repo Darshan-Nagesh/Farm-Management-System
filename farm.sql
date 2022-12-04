@@ -56,10 +56,10 @@ CREATE TABLE medicines(
 CREATE TABLE method(
     method_id VARCHAR(10) PRIMARY KEY,
     method_name VARCHAR(20) NOT NULL,
-    method_type VARCHAR(20),
+    method_type TEXT,
     method_desc TEXT
 );
-ALTER TABLE method MODIFY method_type TEXT NOT NULL;
+
 CREATE TABLE has(
     user_id INTEGER,
     role_id VARCHAR(10),
@@ -148,8 +148,8 @@ UPDATE manages SET method_id = "Md003" WHERE plant_id = "P005";
 INSERT INTO employee VALUES
 ("E003","Dhawan","dhawan@42gmail.com",9900000004,"Belawadi","dhawan42","Dhawan$42");
 
-DELETE FROM users WHERE user_id = 104;
 DELETE FROM employee WHERE emp_id = "E003";
+DELETE FROM users WHERE user_id = 104;
 
 SELECT * FROM users;
 SELECT * FROM roles;
