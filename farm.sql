@@ -59,7 +59,7 @@ CREATE TABLE method(
     method_type VARCHAR(20),
     method_desc TEXT
 );
-
+ALTER TABLE method MODIFY method_type TEXT NOT NULL;
 CREATE TABLE has(
     user_id INTEGER,
     role_id VARCHAR(10),
@@ -125,10 +125,10 @@ INSERT INTO method VALUES
 
 INSERT INTO has VALUES
 (101,"R001"),
-(101,"R002"),
-(101,"R002"),
-(101,"R003"),
-(101,"R003");
+(102,"R002"),
+(103,"R002"),
+(104,"R003"),
+(105,"R003");
 
 INSERT INTO manages VALUES
 (102,"E001","P001","Md001",'2020-12-27'),
@@ -142,13 +142,14 @@ ALTER TABLE login MODIFY login_date DATE NOT NULL;
 ALTER TABLE employee MODIFY emp_username VARCHAR(20) NOT NULL;
 ALTER TABLE employee MODIFY emp_password VARCHAR(15) NOT NULL;
 
-UPDATE login SET login_role_id = 2 WHERE login_id = 104;
+UPDATE login SET login_role_id = "R002" WHERE login_id = 104;
 UPDATE manages SET method_id = "Md003" WHERE plant_id = "P005";
 
 INSERT INTO employee VALUES
 ("E003","Dhawan","dhawan@42gmail.com",9900000004,"Belawadi","dhawan42","Dhawan$42");
 
 DELETE FROM users WHERE user_id = 104;
+DELETE FROM employee WHERE emp_id = "E003";
 
 SELECT * FROM users;
 SELECT * FROM roles;
