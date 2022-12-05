@@ -8,6 +8,14 @@ CREATE TABLE users(
    user_email VARCHAR(20),
    user_add VARCHAR(30)
 );
+ALTER TABLE users ADD COLUMN dob DATE;
+ALTER TABLE users
+ADD age INT;
+
+UPDATE users
+SET age = DATE_FORMAT(FROM_DAYS(DATEDIFF(NOW(), dob)), '%Y') + 0;
+
+SELECT * FROM users;
 
 CREATE TABLE roles(
     role_id VARCHAR(10) PRIMARY KEY,
@@ -78,13 +86,13 @@ CREATE TABLE manages(
    FOREIGN KEY (plant_id) REFERENCES plant(plant_id) ON DELETE CASCADE,
    FOREIGN KEY (method_id) REFERENCES method(method_id) ON DELETE CASCADE
 );
-
+select *  from users;
 INSERT INTO users VALUES
-(101,"Rohith",9900000001,"rohith45@gmail.com","Hootagalli"),
-(102,"Virat",9900000002,"virat18@gmail.com","Nagawala"),
-(103,"Rahul",9900000003,"rahul01@gmail.com","Ilavala"),
-(104,"Dhawan",9900000004,"dhawan42@gmail.com","Belawadi"),
-(105,"Hardhik",9900000005,"hadhik33@gmail.com","Koppal");
+(101,"Rohith",9900000001,"rohith45@gmail.com","Hootagalli",'1976-12-18'),
+(102,"Virat",9900000002,"virat18@gmail.com","Nagawala",'1975-3-7'),
+(103,"Rahul",9900000003,"rahul01@gmail.com","Ilavala",'1978-5-9'),
+(104,"Dhawan",9900000004,"dhawan42@gmail.com","Belawadi",'1986-1-1'),
+(105,"Hardhik",9900000005,"hadhik33@gmail.com","Koppal",'1996-2-8');
 
 INSERT INTO roles VALUES
 ("R001","Admin","Have access to modify entire database"),
@@ -97,10 +105,11 @@ INSERT INTO login VALUES
 (103,"R002","rahul01","Rahul$01",'2021-1-5'),
 (104,"R003","dahwan28","Dhawan$42",'2021-1-25'),
 (105,"R003","hardhik33","Hardhik$42",'2021-2-25');
+ALTER TABLE employee ADD COLUMN salary INTEGER;
 
 INSERT INTO employee VALUES
-("E001","Virat","virat@18gmail.com",9900000002,"Nagawala","virat18","Virat$18"),
-("E002","Rahul","rahul@01gmail.com",9900000003,"Ilavala","rahul01","Rahul$01");
+("E001","Virat","virat@18gmail.com",9900000002,"Nagawala","virat18","Virat$18",20000),
+("E002","Rahul","rahul@01gmail.com",9900000003,"Ilavala","rahul01","Rahul$01",10000);
 
 INSERT INTO plant VALUES
 ("P001","Tomato","Food crop","Requires 10 months to grow","Red loam soil"),
@@ -149,6 +158,53 @@ WHERE plant_type = "Food crop" OR plant_type = "Fiber crop";
 
 SELECT * FROM plant
 WHERE plant_type = "Food crop" AND soil_type = "Black soil";
+
+SELECT COUNT(method_id), method_name FROM method GROUP BY(method_name);
+
+SELECT COUNT(method_id), method_name
+FROM method
+GROUP BY method_name
+HAVING COUNT(method_id) > 1;
+
+SELECT COUNT(plant_id), plant_type
+FROM plant
+GROUP BY plant_type
+HAVING COUNT(plant_id) > 1;
+
+SELECT user_name, SUM(user_id) FROM users
+GROUP BY user_name;
+
+SELECT * FROM users
+WHERE user_id BETWEEN 101 AND 103;
+
+SELECT * FROM users
+WHERE user_name LIKE '%a%';
+
+SELECT login.login_id, users.user_name, login.login_role_id
+FROM login
+INNER JOIN users ON login.login_id = users.user_id;
+
+SELECT login.login_username, roles.role_name 
+FROM login
+LEFT JOIN roles 
+ON roles.role_id = login.login_role_id;
+
+SELECT login.login_username, roles.role_name 
+FROM login
+RIGHT JOIN roles 
+ON roles.role_id = login.login_role_id;
+
+SELECT login.login_username, roles.role_name 
+FROM login
+FULL JOIN roles 
+ON roles.role_id = login.login_role_id;
+
+
+SELECT * FROM users WHERE user_id IN (SELECT user_id FROM users WHERE user_id >102);
+SELECT * FROM employee WHERE salary IN (SELECT salary FROM employee WHERE salary > 1000);
+SELECT * FROM users WHERE age IN (SELECT age FROM users WHERE age > 40);
+SELECT * FROM plant WHERE plant_type IN (SELECT plant_type FROM plant WHERE plant_type = "Food crop");
+SELECT * FROM method WHERE method_name IN (SELECT method_name FROM method WHERE method_name = "Modern method");
 
 ALTER TABLE login MODIFY login_date DATE NOT NULL;
 ALTER TABLE employee MODIFY emp_username VARCHAR(20) NOT NULL;
