@@ -138,6 +138,18 @@ INSERT INTO manages VALUES
 (103,"E002","P005","Md005",'2021-1-5')
 ;
 
+SELECT * FROM login
+WHERE login_role_id = "R002";
+
+SELECT plant_name , plant_type
+FROM plant;
+
+SELECT * FROM plant
+WHERE plant_type = "Food crop" OR plant_type = "Fiber crop";
+
+SELECT * FROM plant
+WHERE plant_type = "Food crop" AND soil_type = "Black soil";
+
 ALTER TABLE login MODIFY login_date DATE NOT NULL;
 ALTER TABLE employee MODIFY emp_username VARCHAR(20) NOT NULL;
 ALTER TABLE employee MODIFY emp_password VARCHAR(15) NOT NULL;
@@ -148,8 +160,8 @@ UPDATE manages SET method_id = "Md003" WHERE plant_id = "P005";
 INSERT INTO employee VALUES
 ("E003","Dhawan","dhawan@42gmail.com",9900000004,"Belawadi","dhawan42","Dhawan$42");
 
-DELETE FROM employee WHERE emp_id = "E003";
 DELETE FROM users WHERE user_id = 104;
+DELETE FROM employee WHERE emp_id = "E003";
 
 SELECT * FROM users;
 SELECT * FROM roles;
