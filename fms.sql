@@ -37,6 +37,7 @@ INSERT INTO `contact` (`name`, `email`, `contact`, `message`) VALUES
 
 
 CREATE TABLE `emptb` (
+  `eid` integer primary key AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
@@ -134,6 +135,31 @@ ALTER TABLE `userreg`
 ALTER TABLE `userreg`
   MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
+
+create table manages(
+    eid integer not null,
+    ename varchar(20) not null,
+    plant_id integer not null,
+    plant_name varchar not null,
+    med_id integer not null,
+    med_name varchar not null,
+    salary integer not null,
+    foreign key(eid) REFERENCES emptb(eid),
+    foreign key(plant_id) REFERENCES plant(plant_id),
+    foreign key(med_id) REFERENCES medicines(med_id),
+);
+
+INSERT INTO manages VALUES
+(1,"ashok","P001","Tomato","M001","Tafaban",500),
+(2,"arun","P002","Sugarcane","M002","Fame",600),
+(3,"Dinesh","P003","Paddy","M003","Sectin",700),
+(4,"Ganesh","P004","Sunflower","M004","Atrataf",550),
+(5,"Kumar","P005","Cotton","M005","Tata Metri",800)
+(6,"Amit","P001","Tomato","M002","Fame",1000),
+(7,"Abbis","P002","Sugarcane","M003","Sectin",1500),
+(8,"Tiwary","P003","Paddy","M004","Atrataf",450)
+;
+
 
 //multi table view
 CREATE VIEW plant_med AS
