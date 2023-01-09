@@ -135,3 +135,22 @@ ALTER TABLE `userreg`
   MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
+//multi table view
+CREATE VIEW plant_med AS
+SELECT medicines.med_id,medicines.med_name,medicines.med_cost,plant.plant_id,plant.plant_name,plant.plant_type
+FROM medicines,plant
+WHERE medicines.plant_id=plant.plant_id;
+
+SELECT * FROM plant_med;
+
+//single table view
+CREATE VIEW irrigation AS
+SELECT soil_type,plant_name,plant_type
+FROM plant
+WHERE soil_type="Black soil";
+
+SELECT * FROM irrigation;
+
+DROP VIEW plant_med;
+
+DROP VIEW irrigation;
