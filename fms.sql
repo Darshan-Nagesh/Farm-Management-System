@@ -180,3 +180,21 @@ SELECT * FROM irrigation;
 DROP VIEW plant_med;
 
 DROP VIEW irrigation;
+
+//Assertions
+select count(username), email from emptb GROUP by(username);
+select AVG(salary) from emptb;
+SELECT MIN(salary) FROM emptb;
+SELECT Max(salary) FROM emptb;
+
+//Triggers
+DELIMITER //
+Create Trigger salary_min
+BEFORE INSERT ON emptb FOR EACH ROW
+BEGIN
+IF NEW.salary < 0 THEN SET NEW.salary = 0;
+END IF;
+END //
+
+INSERT INTO `emptb` (`username`, `password`, `email`, `phone`, `salary`) VALUES
+('ashok', 'ashok123', 'ashok@gmail.com', '9900000001', -154);
