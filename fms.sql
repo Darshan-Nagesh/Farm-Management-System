@@ -160,6 +160,18 @@ INSERT INTO manages VALUES
 (8,"Tiwary","P003","Paddy","M004","Atrataf",450)
 ;
 
+//Corelated queries
+SELECT e.username, m.eid, m.plant_name, m.med_name, m.salary
+FROM manages m
+JOIN emptb e ON e.eid = m.eid
+WHERE e.salary >= 750;
+
+SELECT p.plant_name, p.soil_type, m.med_name, m.med_cost
+FROM medicines m
+JOIN plant p ON p.plant_id = m.plant_id
+WHERE p.soil_type = "Black soil";
+
+//Views
 
 //multi table view
 CREATE VIEW plant_med AS
@@ -181,12 +193,6 @@ DROP VIEW plant_med;
 
 DROP VIEW irrigation;
 
-//Assertions
-select count(username), email from emptb GROUP by(username);
-select AVG(salary) from emptb;
-SELECT MIN(salary) FROM emptb;
-SELECT Max(salary) FROM emptb;
-
 //Triggers
 DELIMITER //
 Create Trigger salary_min
@@ -198,3 +204,23 @@ END //
 
 INSERT INTO `emptb` (`username`, `password`, `email`, `phone`, `salary`) VALUES
 ('ashok', 'ashok123', 'ashok@gmail.com', '9900000001', -154);
+
+
+DELIMITER//
+CREATE TRIGGER emp_d BEFORE DELETE ON emptb
+FOR EACH ROW
+INSERT INTO emp_archive(username,salary)
+VALUES (OLD.username, OLD.salary);
+END IF;
+END//
+
+DELETE FROM emptb WHERE eid = 11;
+
+SELECT * FROM emp_archive;
+
+//Assertions
+select count(username), email from emptb GROUP by(username);
+select AVG(salary) from emptb;
+SELECT MIN(salary) FROM emptb;
+SELECT Max(salary) FROM emptb;
+
