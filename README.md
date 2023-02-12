@@ -34,9 +34,10 @@ Farm Management System using MySQL, Php and Bootstrap
 
 ### Starting Apache And MySQL in XAMPP:
   The XAMPP Control Panel allows you to manually start and stop Apache and MySQL. To start Apache or MySQL manually, click the ‘Start’ button under ‘Actions’.
+  ![home](https://user-images.githubusercontent.com/117649821/218290821-80ff14eb-afe4-4f07-8102-44e2e272a558.png)
+
   
-  
-<p align="center"><img src="https://github.com/Darshan-Nagesh/Farm-Management-System/blob/main/images/home.png"></img></p>
+<!--<p align="center"><img src="https://github.com/Darshan-Nagesh/Farm-Management-System/blob/main/images/home.png"></img></p>-->
 
 ## GETTING INTO THE PROJECT:
 Farm Management System in php and mysql. This system has a ‘Home’ page from where the user, employee & administrator can login into their accounts by toggling the tabs accordingly. Fig 1.1 shows the ‘Home’ page of our project.
